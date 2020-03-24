@@ -4,6 +4,7 @@ import os.path
 
 from library.Log import LOG
 from library.Parser import Parser
+from library.Postman import Postman
 from parsers.WonDollar import WonDollar
 
 
@@ -20,6 +21,11 @@ class Spider:
 
     	# spider internal clock
     	self.ssn = 0
+
+
+    	# database connection 
+    	# by doing this, we create first connection and make it available everywhere!
+    	Postman.init()
 
 
     def addParser(self, parser):
@@ -39,7 +45,7 @@ class Spider:
     		
     		# increase ssn
     		self.ssn += 1
-    		LOG("Running SSN: ", self.ssn)
+    		LOG("Spider", "Running SSN: ", self.ssn)
 
     		# loop through parser list
 			# each parser will internally check its polling status and run if nesscary
@@ -51,11 +57,10 @@ class Spider:
 
     		# check if file exists, if not stop program
     		program_run = os.path.isfile(self.config_filename)
-    		program_run = False
     
 
 if __name__ == "__main__" :
 	s = Spider()
-	s.addParser( WonDollar(name="원달러환율", interval=3) )
+	s.addParser( WonDollar(name="원달러환율", interval=60) )
 	s.run()
 
