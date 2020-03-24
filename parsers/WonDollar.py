@@ -11,14 +11,12 @@ class WonDollar(Parser):
 
 	def __init__(self, **kwargs):
 		super(WonDollar, self).__init__(**kwargs)
-		self.cnt = 1
 
 
 	def parse(self):
 
 		# get html page
-		#url = "https://finance.naver.com/marketindex/exchangeDailyQuote.nhn?marketindexCd=FX_USDKRW&page=1"
-		url = "https://finance.naver.com/marketindex/exchangeDailyQuote.nhn?marketindexCd=FX_USDKRW&page=" + str(self.cnt)
+		url = "https://finance.naver.com/marketindex/exchangeDailyQuote.nhn?marketindexCd=FX_USDKRW&page=1"
 		html = requests.get(url).content
 
 		# create parse element
@@ -100,4 +98,3 @@ class WonDollar(Parser):
 			LOG(self.name, params)
 
 
-		self.cnt = self.cnt + 1
