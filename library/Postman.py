@@ -32,13 +32,11 @@ class Postman:
     def connect(self):
 
         def get_config():
-            with open("../database.config") as f:
+            with open("./database.config") as f:
                 return json.load(f)
 
 
         config = get_config()
-
-        print(config)
 
         # get database config
         username    = config["user"]
