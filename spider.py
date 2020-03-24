@@ -45,14 +45,14 @@ class Spider:
     		
     		# increase ssn
     		self.ssn += 1
-    		LOG("Spider", "Running SSN: ", self.ssn)
+    		#LOG("Spider", "Running SSN: ", self.ssn)
 
     		# loop through parser list
-			# each parser will internally check its polling status and run if nesscary
+		# each parser will internally check its polling status and run if nesscary
     		for parser in self.parser_list:
     			parser.run()
 
-			# sleep for 1 second
+		# sleep for 1 second
     		time.sleep(1)
 
     		# check if file exists, if not stop program
@@ -61,6 +61,6 @@ class Spider:
 
 if __name__ == "__main__" :
 	s = Spider()
-	s.addParser( WonDollar(name="원달러환율", interval=60) )
+	s.addParser( WonDollar(name="원달러환율", interval_days=1) )
 	s.run()
 
