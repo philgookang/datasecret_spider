@@ -31,14 +31,25 @@ class Postman:
 
     def connect(self):
 
+        def get_config():
+            with open("../database.config") as f:
+                return json.load(f)
+
+
+        config = get_config()
+
+        print(config)
+
         # get database config
-        username    = ""
-        password    = ""
-        host        = ""
-        database    = ""
+        username    = config["user"]
+        password    = config["password"]
+        host        = config["host"]
+        database    = "datasecret"
+
+
 
         # connection to database
-        self.mysqlConnection = mysql.connector.connect(username, password, host, database, charset="utf8mb4", raise_on_warnings=True)
+        self.mysqlConnection = mysql.connector.connect(user=username, password=password, host=host, database=database, charset="utf8", raise_on_warnings=True)
 
         # makes life easy
         self.mysqlConnection.autocommit = True
@@ -105,7 +116,7 @@ class Postman:
             # clean up mysql
             self.mysqlConnection.close()
 
-        except ReferenceError:
+        except (AttributeError, ReferenceError) as e:
             pass
 
     def __exit__(self, exc_type, exc_value, traceback):
@@ -115,4 +126,9 @@ class Postman:
 
         # clean up mysql
         self.mysqlConnection.close()
+
+
+
+p = Postman.init()
+#p.connect()
 
