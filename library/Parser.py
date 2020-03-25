@@ -6,6 +6,7 @@ class Parser:
 
 		# 0 means false! will not run!
 		self.interval = kwargs["interval"] if "interval" in kwargs else 0
+		self.interval_hours = kwargs["interval_hours"] if "interval_hours" in kwargs else 0
 		self.interval_days = kwargs["interval_days"] if "interval_days" in kwargs else 0
 
 		# name of this parser
@@ -20,9 +21,13 @@ class Parser:
 		if self.interval != 0:
 			self.last_run_date_time = self.last_run_date_time - timedelta(seconds=self.interval)
 
+		# add hours
+		if self.interval_hours != 0:
+			self.last_run_date_time = self.last_run_date_time -  timedelta(hours=self.interval_hours)
+
 		# add days
 		if self.interval_days != 0:
-			self.last_run_date_time = self.last_run_date_time -  timedelta(seconds=self.interval_days)
+			self.last_run_date_time = self.last_run_date_time -  timedelta(days=self.interval_days)
 
 
 
@@ -48,9 +53,13 @@ class Parser:
 		if self.interval != 0:
 			last_run_time = last_run_time + timedelta(seconds=self.interval)
 
+		# add hours
+		if self.interval_hours != 0:
+			last_run_time = last_run_time + timedelta(hours=self.interval_hours)
+
 		# add days
 		if self.interval_days != 0:
-			last_run_time = last_run_time + timedelta(seconds=self.interval_days)
+			last_run_time = last_run_time + timedelta(days=self.interval_days)
 
 		# it has been long enough, lets run!
 		if current_time >= last_run_time:
