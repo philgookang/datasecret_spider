@@ -50,7 +50,7 @@ class Spider:
     		# loop through parser list
 		# each parser will internally check its polling status and run if nesscary
     		for parser in self.parser_list:
-    			parser.run()
+    			parser.run(self.ssn)
 
 		# sleep for 1 second
     		time.sleep(1)
