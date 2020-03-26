@@ -64,7 +64,7 @@ class WonDollar(Parser):
 
 			# check if there was any results
 			if check and "idx" in check:
-				LOG(self.name, params["date_price"], "already exists, skipping to next row")
+				LOG(self.name,self.current_ssn, params["date_price"], "already exists, skipping to next row")
 				# result found, skip to next one!
 				continue
 			
@@ -94,7 +94,7 @@ class WonDollar(Parser):
 				str(datetime.now().strftime("%Y-%m-%d %H:%I:%S")), '1'
 			])
 
-			LOG(self.name, "created row with idx:", idx)
-			LOG(self.name, params)
+			LOG(self.name, self.current_ssn, "created row with idx:", idx)
+			LOG(self.name, self.current_ssn, params)
 
 
