@@ -12,6 +12,9 @@ class Parser:
 		# name of this parser
 		self.name = kwargs["name"] if "name" in kwargs else "Paser"
 
+		# the SSN run was called!
+		self.run_ssn = -1
+
 
 		# PRIVATE Params
 		# the last time it was called
@@ -31,8 +34,11 @@ class Parser:
 
 
 
-	def run(self):
+	def run(self, current_ssn = -1):
 		
+		# save the current snn number
+		self.current_ssn = current_ssn
+
 		# check if its already time
 		if not self.check_interval():
 			return;
