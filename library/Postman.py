@@ -44,8 +44,6 @@ class Postman:
         host        = config["host"]
         database    = "datasecret"
 
-
-
         # connection to database
         self.mysqlConnection = mysql.connector.connect(user=username, password=password, host=host, database=database, charset="utf8", raise_on_warnings=True)
 
@@ -58,6 +56,7 @@ class Postman:
         # set names
         self.mysqlCursor.execute("SET NAMES " + config["connection"])
 
+
     def execute(self, sql, params = [], show_sql = False):
 
         try:
@@ -66,8 +65,17 @@ class Postman:
             self.mysqlCursor.execute( sql, tuple(params) )
 
         except  mysql.connector.Error as err:
+            
             print("[MYSQL ERROR] " , err)
-            pass
+
+            # connection has gone away, lets reconnect and start over again!
+            if err.errno == 2006:
+
+                # reconnect to database
+                self.connect()
+
+                # recursively call execute again
+                return self.execute(sql, params, show_sql)
 
         if show_sql:
             print(self.mysqlCursor.statement)
@@ -89,6 +97,7 @@ class Postman:
             return row
 
         return None
+
 
     def getList(self, sql, params = [], show_sql = False):
 
@@ -116,6 +125,7 @@ class Postman:
 
         except (AttributeError, ReferenceError) as e:
             pass
+
 
     def __exit__(self, exc_type, exc_value, traceback):
 
