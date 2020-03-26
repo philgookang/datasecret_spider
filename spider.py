@@ -6,7 +6,7 @@ from library.Log import LOG
 from library.Parser import Parser
 from library.Postman import Postman
 from parsers.WonDollar import WonDollar
-
+from parsers.WonYen import WonYen
 
 class Spider:
 
@@ -62,5 +62,6 @@ class Spider:
 if __name__ == "__main__" :
 	s = Spider()
 	s.addParser( WonDollar(name="원달러환율", interval_days=1) )
+	s.addParser( WonYen(name="원옌환율", interval_days=1) )
 	s.run()
 
