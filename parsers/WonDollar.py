@@ -44,6 +44,11 @@ class WonDollar(Parser):
 				"tc_buy_rate" 			: tds[7].text.replace(",", "").strip(),
 				"tc_foreign_sell" 		: tds[8].text.replace(",", "").strip(),
 			}
+
+			# check if its today, skip!
+			if str(datetime.now().strftime("%Y-%m-%d")) in params["date_price"]:
+			    LOG(self.name,self.current_ssn, params["date_price"], "already exists, skipping to next row")
+			    continue
 			
 			# get item from database with current date
 			check = postman.getObject("""
