@@ -8,11 +8,6 @@ from library.Log import LOG
 
 class WonDollar(Parser):
 
-
-	def __init__(self, **kwargs):
-		super(WonDollar, self).__init__(**kwargs)
-
-
 	def parse(self):
 
 		# get html page
